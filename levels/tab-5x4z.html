@@ -50,8 +50,8 @@
   <footer>riddlegame</footer>
 
   <script>
-    async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
-    const H = 'eafe895eb8119e6e5d06463590b2ef81b3651c157d5c8e18f1889186c7fd0ac0';
+    async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('rg:'+s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
+    const H = '313ab5a5fd5c004f0ac6823dae6b811e804fbe4f3632d86feef43f543b788ddb';
     const next = 'memory-8v3q.html';
     let tries = 0;
 

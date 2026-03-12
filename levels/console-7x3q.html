@@ -42,8 +42,8 @@
     console.log('%c ', 'font-size:1px');
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-    async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
-    const H = '3bb68de60f56156655a2a70e606892edda3e2f2fc57b482bfe3ef1c5263db5b6';
+    async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('rg:'+s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
+    const H = 'b68cf1610edd6826d86c9a4647ab6201eeaeeb9c293b6f64409184133a235709';
     const next = 'contra-2k9p.html';
     let tries = 0;
 

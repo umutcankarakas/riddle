@@ -62,8 +62,8 @@
   <footer>riddlegame</footer>
 
   <script>
-    async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
-    const H = 'c806cd9c716cfbfdb4763c71dd1394b3e602fce81291a0338bf8e3225416ac32';
+    async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('rg:'+s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
+    const H = '2f4c3611e3c89cbdc77a0871ed55f1bf80f0bedac5889e09235bf4047c46b1b7';
     const next = 'acrostic-4n8z.html';
     let tries = 0;
 

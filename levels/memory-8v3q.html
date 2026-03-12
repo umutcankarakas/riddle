@@ -32,8 +32,8 @@
   <script>
     localStorage.setItem('riddle_secret', 'persist');
 
-    async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
-    const H = '1c61425b1ba94748e725edd6fbc902b80e08483116a8affb4b8829143e486f1e';
+    async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('rg:'+s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
+    const H = 'f1b947903c2bc24733609496ceb99d58be42a19dfee3aee6db5bdf91b2c98937';
     const next = 'complete-2xr8.html';
     let tries = 0;
 

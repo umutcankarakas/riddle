@@ -31,8 +31,8 @@
   <footer>riddlegame</footer>
 
   <script>
-    async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
-    const H = 'd8198efa3604d164853468608c55efa148bc56e3564d5a30232bf98b8ab43aeb';
+    async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('rg:'+s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
+    const H = '0f5b1ed46dc2b4a304f47895866880fd4dadc589e18c88f904c6f32c57f38e90';
     const next = 'dark-3m9x.html';
     let tries = 0;
 

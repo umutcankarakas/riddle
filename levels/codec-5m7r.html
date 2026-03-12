@@ -61,8 +61,8 @@
   <footer>riddlegame</footer>
 
   <script>
-    async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
-    const H = 'e6c18fdbe59783dfefef3595cd288bcb7ce912d36854b5e8faaef31235d9031b';
+    async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('rg:'+s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
+    const H = 'd25e97cc6d928fef990f6de3ecb193424d19e1ed3be457268a4ebf81172ea5ce';
     const next = 'perspective-6w4t.html';
     let tries = 0;
 
@@ -86,9 +86,9 @@
         void field.offsetWidth;
         field.classList.add('shake');
 
-        if (hv === 'f898f9f33750480435857af388d4b91d677ec36954c82ded0f3c82e4b2cb6d02') {
+        if (hv === 'c1209fbb81801c4f18c681c578414384b337f407a31571dcc844ffea9eaacf1b') {
           msg.textContent = 'correct. that one really isn\'t it.';
-        } else if (hv === '590d041b01af6d9d2afe820e6d24e7cd22b4e88d6415dfc50f2a4f768f2507b7') {
+        } else if (hv === '0f1020ce9352f30aab81108768bb2a803e52a475449a79594fb5e1667d4156ff') {
           msg.textContent = 'yes, keep looking.';
         } else {
           msg.textContent = 'not quite.';

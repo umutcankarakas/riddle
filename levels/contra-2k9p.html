@@ -81,8 +81,8 @@
     ];
     let konamiIdx = 0;
 
-    async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
-    const H = '877d41bc540c57e06ac1f4d3edfd59e5d3651402500a4336e26f50572fcb9389';
+    async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('rg:'+s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
+    const H = '7d70e777033998b97e4185dcf3180318920f9363197d04b11391d95784fcfe71';
     const next = 'codec-5m7r.html';
     let tries = 0;
     let unlocked = false;

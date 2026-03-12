@@ -42,8 +42,8 @@
   <footer>riddlegame</footer>
 
   <script>
-    async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
-    const H = '2df5712e1cf303a50fac51e4b2c0ac71884f746b20f206f9df2eb6375fde7270';
+    async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('rg:'+s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
+    const H = '16a94694b8736607db989d01d9225b30921ab527297b97238164ef1ac0f966e3';
     const next = 'morse-6v2q.html';
     let tries = 0;
 

@@ -46,7 +46,7 @@
   <footer>riddlegame</footer>
 
   <script>
-    async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
+    async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('rg:'+s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
     const next = 'hover-5r3n.html';
     let tries = 0;
 
@@ -60,10 +60,10 @@
       if (!val) return;
 
       const hv = await h(val);
-      if (hv === '4e448897946ead9e39e8c61c2994b2ada30968ed9d14ac21ebaba710d823db64' ||
-          hv === '299bcf54c044b1b5d49a18da354e16f240b695a1f3a55f1e5217595de59fbb3d' ||
-          hv === 'bf6e7814c35d7231fb53f7ec0c85745df062bf65e96742df48cbb966b7129b71' ||
-          hv === '9b473845f684444f80a26586ae298d2ba491752cc70b893cc653d943b6fa2ac2') {
+      if (hv === 'b257c41882a65bfaa81b6db32ef278d01ba2afcf73247f89436f4b413ba11c95' ||
+          hv === '912ae0fd8bf81b8f8c2c8d7aa34092f13b463aafe94a2101b58ff01349509c2a' ||
+          hv === 'f0e15756508b79e6465a044fb27fc4f0f92723a0eaba261857b40ad48a3d0a56' ||
+          hv === 'fe66858aa202b0f8f127d732262bcd97b1092d4f7a1f1cf409763b2e4ab6431b') {
         msg.textContent = 'perspective shift complete.';
         msg.classList.add('ok');
         setTimeout(() => window.location.href = next, 900);
