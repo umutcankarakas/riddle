@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Riddle — Level 8</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    #reveal {
+      display: none;
+      font-size: 2.4em;
+      color: #fff;
+      letter-spacing: 0.45em;
+      margin: 1.5rem 0 2.5rem;
+      text-shadow: 0 0 18px rgba(255,255,255,0.6);
+    }
+
+    .progress-dots {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+
+    .dot-key {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #1c1c1c;
+      transition: background 0.15s;
+    }
+
+    .dot-key.lit {
+      background: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="lvl">— level 8 —</div>
+
+    <div class="clue">
+      <p>Contra. 1986. 30 lives.</p>
+      <p>&nbsp;</p>
+      <p>Those who remember know the sequence.</p>
+      <p>Enter it on your keyboard.</p>
+    </div>
+
+    <div id="reveal"></div>
+
+    <div class="field">
+      <input type="text" id="answer" placeholder="type what appears..." autocomplete="off" spellcheck="false">
+      <button id="btn">→</button>
+    </div>
+
+    <div class="msg" id="msg"></div>
+
+    <div class="progress-dots">
+      <div class="dot-key" id="d0"></div>
+      <div class="dot-key" id="d1"></div>
+      <div class="dot-key" id="d2"></div>
+      <div class="dot-key" id="d3"></div>
+      <div class="dot-key" id="d4"></div>
+      <div class="dot-key" id="d5"></div>
+      <div class="dot-key" id="d6"></div>
+      <div class="dot-key" id="d7"></div>
+      <div class="dot-key" id="d8"></div>
+      <div class="dot-key" id="d9"></div>
+    </div>
+
+    <div class="hint" id="hint">hint: ↑ ↑ ↓ ↓ ← → ← → B A — press these keys on your keyboard in this exact order</div>
+  </div>
+
+  <footer>riddlegame</footer>
+
+  <script>
+    const konamiSeq = [
+      'ArrowUp','ArrowUp','ArrowDown','ArrowDown',
+      'ArrowLeft','ArrowRight','ArrowLeft','ArrowRight',
+      'KeyB','KeyA'
+    ];
+    let konamiIdx = 0;
+
+    async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
+    const H = '877d41bc540c57e06ac1f4d3edfd59e5d3651402500a4336e26f50572fcb9389';
+    const next = 'codec-5m7r.html';
+    let tries = 0;
+    let unlocked = false;
+
+    const input  = document.getElementById('answer');
+    const msg    = document.getElementById('msg');
+    const hint   = document.getElementById('hint');
+    const field  = document.querySelector('.field');
+    const reveal = document.getElementById('reveal');
+
+    document.addEventListener('keydown', e => {
+      const key = e.code;
+
+      if (key === konamiSeq[konamiIdx]) {
+        document.getElementById('d' + konamiIdx).classList.add('lit');
+        konamiIdx++;
+
+        if (konamiIdx === konamiSeq.length) {
+          activateKonami();
+        }
+      } else {
+        // reset dots
+        for (let i = 0; i < konamiSeq.length; i++) {
+          document.getElementById('d' + i).classList.remove('lit');
+        }
+        konamiIdx = (key === konamiSeq[0]) ? 1 : 0;
+        if (konamiIdx === 1) {
+          document.getElementById('d0').classList.add('lit');
+        }
+      }
+    });
+
+    function activateKonami() {
+      unlocked = true;
+      reveal.style.display = 'block';
+      const word = 'arise';
+      let i = 0;
+      const iv = setInterval(() => {
+        reveal.textContent = word.substring(0, i + 1) + (i < word.length - 1 ? '_' : '');
+        i++;
+        if (i >= word.length) {
+          clearInterval(iv);
+          reveal.textContent = word;
+          input.focus();
+        }
+      }, 130);
+    }
+
+    async function check() {
+      const val = input.value.trim().toLowerCase();
+      if (!val) return;
+
+      if (!unlocked) {
+        msg.textContent = 'enter the sequence first.';
+        hint.classList.add('visible');
+        return;
+      }
+
+      if (await h(val) === H) {
+        msg.textContent = 'code accepted.';
+        msg.classList.add('ok');
+        setTimeout(() => window.location.href = next, 900);
+      } else {
+        tries++;
+        field.classList.remove('shake');
+        void field.offsetWidth;
+        field.classList.add('shake');
+        msg.textContent = 'not quite.';
+        if (tries >= 3) hint.classList.add('visible');
+      }
+    }
+
+    document.getElementById('btn').addEventListener('click', check);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') check(); });
+  </script>
+</body>
+</html>

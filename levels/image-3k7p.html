@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Riddle — Level 14</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .mystery-img {
+      display: block;
+      width: 280px;
+      height: 160px;
+      margin: 2rem auto;
+      border: 1px solid #1a1a1a;
+      background: #0a0a0a;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="lvl">— level 14 —</div>
+
+    <div class="clue">
+      <p>A picture is worth a thousand words.</p>
+      <p>But what does this one say</p>
+      <p>when it cannot show itself?</p>
+      <img class="mystery-img"
+           src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='160'%3E%3Crect width='280' height='160' fill='%230a0a0a'/%3E%3Ctext x='50%25' y='50%25' fill='%23222' font-family='monospace' font-size='13' text-anchor='middle' dominant-baseline='middle'%3E?%3C/text%3E%3C/svg%3E"
+           alt="vessel">
+    </div>
+
+    <div class="field">
+      <input type="text" id="answer" placeholder="what does it say?" autocomplete="off" spellcheck="false">
+      <button id="btn">→</button>
+    </div>
+
+    <div class="msg" id="msg"></div>
+    <div class="hint" id="hint">hint: inspect the image → alt</div>
+  </div>
+
+  <footer>riddlegame</footer>
+
+  <script>
+    async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
+    const H = '2df5712e1cf303a50fac51e4b2c0ac71884f746b20f206f9df2eb6375fde7270';
+    const next = 'morse-6v2q.html';
+    let tries = 0;
+
+    const input = document.getElementById('answer');
+    const msg   = document.getElementById('msg');
+    const hint  = document.getElementById('hint');
+    const field = document.querySelector('.field');
+
+    async function check() {
+      const val = input.value.trim().toLowerCase();
+      if (!val) return;
+      if (await h(val) === H) {
+        msg.textContent = 'received.';
+        msg.classList.add('ok');
+        setTimeout(() => window.location.href = next, 900);
+      } else {
+        tries++;
+        field.classList.remove('shake');
+        void field.offsetWidth;
+        field.classList.add('shake');
+        msg.textContent = 'not quite.';
+        if (tries >= 3) hint.classList.add('visible');
+      }
+    }
+
+    document.getElementById('btn').addEventListener('click', check);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') check(); });
+    input.focus();
+  </script>
+</body>
+</html>

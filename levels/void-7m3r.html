@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Riddle — Level 17</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .oracle {
+      width: 1px;
+      height: 1px;
+      position: relative;
+      margin: 2rem auto;
+    }
+
+    .oracle::before {
+      content: "specter";
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      font-size: 0.01px;
+      color: transparent;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="lvl">— level 17 —</div>
+
+    <div class="clue">
+      <p>There is a voice here.</p>
+      <p>But it has no body in the HTML.</p>
+      <p>&nbsp;</p>
+      <p>Only the stylesheet carries its words.</p>
+    </div>
+
+    <div class="oracle"></div>
+
+    <div class="field">
+      <input type="text" id="answer" placeholder="what does it say?" autocomplete="off" spellcheck="false">
+      <button id="btn">→</button>
+    </div>
+
+    <div class="msg" id="msg"></div>
+    <div class="hint" id="hint">hint: DevTools → ::before</div>
+  </div>
+
+  <footer>riddlegame</footer>
+
+  <script>
+    async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
+    const H = '1b2ee055072ad7f68c05a828393967d407ea160383daae962112166979008bac';
+    const next = 'lock-2k9w.html';
+    let tries = 0;
+
+    const input = document.getElementById('answer');
+    const msg   = document.getElementById('msg');
+    const hint  = document.getElementById('hint');
+    const field = document.querySelector('.field');
+
+    async function check() {
+      const val = input.value.trim().toLowerCase();
+      if (!val) return;
+      if (await h(val) === H) {
+        msg.textContent = 'it speaks.';
+        msg.classList.add('ok');
+        setTimeout(() => window.location.href = next, 900);
+      } else {
+        tries++;
+        field.classList.remove('shake');
+        void field.offsetWidth;
+        field.classList.add('shake');
+        msg.textContent = 'not quite.';
+        if (tries >= 3) hint.classList.add('visible');
+      }
+    }
+
+    document.getElementById('btn').addEventListener('click', check);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') check(); });
+    input.focus();
+  </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Riddle — Level 20</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="page">
+    <div class="lvl">— level 20 —</div>
+
+    <div class="clue">
+      <p>This page leaves a mark.</p>
+      <p>&nbsp;</p>
+      <p>Refresh. Close the tab. Come back.</p>
+      <p>It will still be there.</p>
+      <p>Some things don't disappear so easily.</p>
+    </div>
+
+    <div class="field">
+      <input type="text" id="answer" placeholder="what did it leave behind?" autocomplete="off" spellcheck="false">
+      <button id="btn">→</button>
+    </div>
+
+    <div class="msg" id="msg"></div>
+    <div class="hint" id="hint">hint: DevTools → Application → Local Storage</div>
+  </div>
+
+  <footer>riddlegame</footer>
+
+  <script>
+    localStorage.setItem('riddle_secret', 'persist');
+
+    async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
+    const H = '1c61425b1ba94748e725edd6fbc902b80e08483116a8affb4b8829143e486f1e';
+    const next = 'complete-2xr8.html';
+    let tries = 0;
+
+    const input = document.getElementById('answer');
+    const msg   = document.getElementById('msg');
+    const hint  = document.getElementById('hint');
+    const field = document.querySelector('.field');
+
+    async function check() {
+      const val = input.value.trim().toLowerCase();
+      if (!val) return;
+      if (await h(val) === H) {
+        msg.textContent = 'it endures.';
+        msg.classList.add('ok');
+        localStorage.removeItem('riddle_secret');
+        setTimeout(() => window.location.href = next, 900);
+      } else {
+        tries++;
+        field.classList.remove('shake');
+        void field.offsetWidth;
+        field.classList.add('shake');
+        msg.textContent = 'not quite.';
+        if (tries >= 3) hint.classList.add('visible');
+      }
+    }
+
+    document.getElementById('btn').addEventListener('click', check);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') check(); });
+    input.focus();
+  </script>
+</body>
+</html>

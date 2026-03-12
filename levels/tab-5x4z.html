@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Riddle — Level 19</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .hidden-word {
+      color: #000000;
+      font-size: 1.4em;
+      letter-spacing: 0.5em;
+      padding: 20px 30px;
+      margin: 1.5rem auto;
+      outline: none;
+      transition: color 0.4s;
+      cursor: default;
+      display: inline-block;
+    }
+
+    .hidden-word:focus {
+      color: #d8d8d8;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="lvl">— level 19 —</div>
+
+    <div class="clue">
+      <p>Put the mouse down.</p>
+      <p>Navigate without it.</p>
+      <p>&nbsp;</p>
+      <p>Every element has a place in the order.</p>
+      <p>One of them reveals itself</p>
+      <p>only when given full attention.</p>
+    </div>
+
+    <div class="hidden-word" tabindex="0">trace</div>
+
+    <div class="field">
+      <input type="text" id="answer" placeholder="what appears?" autocomplete="off" spellcheck="false">
+      <button id="btn">→</button>
+    </div>
+
+    <div class="msg" id="msg"></div>
+    <div class="hint" id="hint">hint: Tab key</div>
+  </div>
+
+  <footer>riddlegame</footer>
+
+  <script>
+    async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
+    const H = 'eafe895eb8119e6e5d06463590b2ef81b3651c157d5c8e18f1889186c7fd0ac0';
+    const next = 'memory-8v3q.html';
+    let tries = 0;
+
+    const input = document.getElementById('answer');
+    const msg   = document.getElementById('msg');
+    const hint  = document.getElementById('hint');
+    const field = document.querySelector('.field');
+
+    async function check() {
+      const val = input.value.trim().toLowerCase();
+      if (!val) return;
+      if (await h(val) === H) {
+        msg.textContent = 'found.';
+        msg.classList.add('ok');
+        setTimeout(() => window.location.href = next, 900);
+      } else {
+        tries++;
+        field.classList.remove('shake');
+        void field.offsetWidth;
+        field.classList.add('shake');
+        msg.textContent = 'not quite.';
+        if (tries >= 3) hint.classList.add('visible');
+      }
+    }
+
+    document.getElementById('btn').addEventListener('click', check);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') check(); });
+    input.focus();
+  </script>
+</body>
+</html>

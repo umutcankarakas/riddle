@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Riddle — Level 1</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="page">
+    <div class="lvl">— level 1 —</div>
+
+    <div class="clue">
+      <p>I have hands, but cannot clap.</p>
+      <p>I have a face, but no eyes to see.</p>
+      <p>Every second of your life, you have watched me,</p>
+      <p>yet you've never truly noticed me.</p>
+      <p>&nbsp;</p>
+      <p>What am I?</p>
+    </div>
+
+    <div class="field">
+      <input type="text" id="answer" placeholder="your answer..." autocomplete="off" spellcheck="false">
+      <button id="btn">→</button>
+    </div>
+
+    <div class="msg" id="msg"></div>
+    <div class="hint" id="hint">hint: you use it every day to tell the time</div>
+  </div>
+
+  <footer>riddlegame</footer>
+
+  <script>
+    async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
+    const H = 'd8198efa3604d164853468608c55efa148bc56e3564d5a30232bf98b8ab43aeb';
+    const next = 'dark-3m9x.html';
+    let tries = 0;
+
+    const input = document.getElementById('answer');
+    const msg   = document.getElementById('msg');
+    const hint  = document.getElementById('hint');
+    const field = document.querySelector('.field');
+
+    async function check() {
+      const val = input.value.trim().toLowerCase();
+      if (!val) return;
+
+      if (await h(val) === H) {
+        msg.textContent = 'correct.';
+        msg.classList.add('ok');
+        setTimeout(() => window.location.href = next, 900);
+      } else {
+        tries++;
+        field.classList.remove('shake');
+        void field.offsetWidth;
+        field.classList.add('shake');
+        msg.textContent = 'not quite. try again.';
+        if (tries >= 3) hint.classList.add('visible');
+      }
+    }
+
+    document.getElementById('btn').addEventListener('click', check);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') check(); });
+    input.focus();
+  </script>
+</body>
+</html>

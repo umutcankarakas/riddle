@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Riddle — Level 7</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="page">
+    <div class="lvl">— level 7 —</div>
+
+    <div class="clue">
+      <p>Not all messages are meant to be seen on the page.</p>
+      <p>&nbsp;</p>
+      <p>Some are sent to a different audience entirely.</p>
+      <p>Open the right channel and you will hear it.</p>
+    </div>
+
+    <div class="field">
+      <input type="text" id="answer" placeholder="listen closely..." autocomplete="off" spellcheck="false">
+      <button id="btn">→</button>
+    </div>
+
+    <div class="msg" id="msg"></div>
+    <div class="hint" id="hint">hint: F12 → Console</div>
+  </div>
+
+  <footer>riddlegame</footer>
+
+  <script>
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    console.log('%c ', 'font-size:1px');
+    console.log(
+      '%c  👁  transmission received  ',
+      'background:#000;color:#00ff88;font-family:monospace;font-size:13px;padding:6px 12px;border:1px solid #00ff88;'
+    );
+    console.log(
+      '%c  the answer is: phantom     ',
+      'background:#000;color:#00ff88;font-family:monospace;font-size:13px;padding:6px 12px;border:1px solid #00ff88;'
+    );
+    console.log('%c ', 'font-size:1px');
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+    async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
+    const H = '3bb68de60f56156655a2a70e606892edda3e2f2fc57b482bfe3ef1c5263db5b6';
+    const next = 'contra-2k9p.html';
+    let tries = 0;
+
+    const input = document.getElementById('answer');
+    const msg   = document.getElementById('msg');
+    const hint  = document.getElementById('hint');
+    const field = document.querySelector('.field');
+
+    async function check() {
+      const val = input.value.trim().toLowerCase();
+      if (!val) return;
+
+      if (await h(val) === H) {
+        msg.textContent = 'message received.';
+        msg.classList.add('ok');
+        setTimeout(() => window.location.href = next, 900);
+      } else {
+        tries++;
+        field.classList.remove('shake');
+        void field.offsetWidth;
+        field.classList.add('shake');
+        msg.textContent = 'not quite.';
+        if (tries >= 3) hint.classList.add('visible');
+      }
+    }
+
+    document.getElementById('btn').addEventListener('click', check);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') check(); });
+    input.focus();
+  </script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Riddle — Level 5</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .alpha-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0.35em 1.2em;
+      margin: 1.5rem auto;
+      max-width: 360px;
+      font-size: 0.76em;
+      color: #484848;
+      text-align: left;
+    }
+
+    .code-line {
+      font-size: 1.5em;
+      letter-spacing: 0.35em;
+      color: #fff;
+      margin: 1.5rem 0 0.5rem;
+    }
+
+    .dot {
+      color: #2a2a2a;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="lvl">— level 5 —</div>
+
+    <div class="clue">
+      <p>Numbers are just letters in disguise.</p>
+
+      <div class="alpha-grid">
+        <span>A=1</span><span>B=2</span><span>C=3</span><span>D=4</span><span>E=5</span><span>F=6</span>
+        <span>G=7</span><span>H=8</span><span>I=9</span><span>J=10</span><span>K=11</span><span>L=12</span>
+        <span>M=13</span><span>N=14</span><span>O=15</span><span>P=16</span><span>Q=17</span><span>R=18</span>
+        <span>S=19</span><span>T=20</span><span>U=21</span><span>V=22</span><span>W=23</span><span>X=24</span>
+        <span>Y=25</span><span>Z=26</span>
+      </div>
+
+      <p>Decode:</p>
+      <div class="code-line">
+        3<span class="dot">·</span>9<span class="dot">·</span>16<span class="dot">·</span>8<span class="dot">·</span>5<span class="dot">·</span>18
+      </div>
+    </div>
+
+    <div class="field">
+      <input type="text" id="answer" placeholder="decode the message..." autocomplete="off" spellcheck="false">
+      <button id="btn">→</button>
+    </div>
+
+    <div class="msg" id="msg"></div>
+    <div class="hint" id="hint">hint: each number is the position of a letter in the alphabet. 1=A, 2=B, 3=C, ...</div>
+  </div>
+
+  <footer>riddlegame</footer>
+
+  <script>
+    async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
+    const H = 'c806cd9c716cfbfdb4763c71dd1394b3e602fce81291a0338bf8e3225416ac32';
+    const next = 'acrostic-4n8z.html';
+    let tries = 0;
+
+    const input = document.getElementById('answer');
+    const msg   = document.getElementById('msg');
+    const hint  = document.getElementById('hint');
+    const field = document.querySelector('.field');
+
+    async function check() {
+      const val = input.value.trim().toLowerCase();
+      if (!val) return;
+
+      if (await h(val) === H) {
+        msg.textContent = 'decoded.';
+        msg.classList.add('ok');
+        setTimeout(() => window.location.href = next, 900);
+      } else {
+        tries++;
+        field.classList.remove('shake');
+        void field.offsetWidth;
+        field.classList.add('shake');
+        msg.textContent = 'not quite.';
+        if (tries >= 3) hint.classList.add('visible');
+      }
+    }
+
+    document.getElementById('btn').addEventListener('click', check);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') check(); });
+    input.focus();
+  </script>
+</body>
+</html>

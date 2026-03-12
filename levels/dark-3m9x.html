@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Riddle — Level 2</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .invisible {
+      color: #000000;
+      cursor: text;
+      user-select: text;
+      -webkit-user-select: text;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="lvl">— level 2 —</div>
+
+    <div class="clue">
+      <p>Not everything that exists can be seen.</p>
+      <p>The answer hides in the <span class="invisible">shadow</span>.</p>
+      <p>Some things only reveal themselves in light.</p>
+      <p>&nbsp;</p>
+      <p>Select all the text on this page.</p>
+    </div>
+
+    <div class="field">
+      <input type="text" id="answer" placeholder="what hides in the dark?" autocomplete="off" spellcheck="false">
+      <button id="btn">→</button>
+    </div>
+
+    <div class="msg" id="msg"></div>
+    <div class="hint" id="hint">hint: try Ctrl+A</div>
+  </div>
+
+  <footer>riddlegame</footer>
+
+  <script>
+    async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
+    const H = '0bb09d80600eec3eb9d7793a6f859bedde2a2d83899b70bd78e961ed674b32f4';
+    const next = 'source-5k4n.html';
+    let tries = 0;
+
+    const input = document.getElementById('answer');
+    const msg   = document.getElementById('msg');
+    const hint  = document.getElementById('hint');
+    const field = document.querySelector('.field');
+
+    async function check() {
+      const val = input.value.trim().toLowerCase();
+      if (!val) return;
+
+      if (await h(val) === H) {
+        msg.textContent = 'you found it.';
+        msg.classList.add('ok');
+        setTimeout(() => window.location.href = next, 900);
+      } else {
+        tries++;
+        field.classList.remove('shake');
+        void field.offsetWidth;
+        field.classList.add('shake');
+        msg.textContent = 'not quite.';
+        if (tries >= 3) hint.classList.add('visible');
+      }
+    }
+
+    document.getElementById('btn').addEventListener('click', check);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') check(); });
+    input.focus();
+  </script>
+</body>
+</html>

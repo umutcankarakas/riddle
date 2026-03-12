@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Riddle</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .intro {
+      text-align: center;
+      max-width: 560px;
+    }
+
+    .title {
+      font-size: 3em;
+      color: #fff;
+      letter-spacing: 0.4em;
+      margin-bottom: 3.5rem;
+      text-shadow: 0 0 40px rgba(255,255,255,0.07);
+    }
+
+    #typewriter {
+      font-size: 0.95em;
+      line-height: 2.3;
+      color: var(--text);
+      min-height: 9em;
+    }
+
+    .start-link {
+      display: inline-block;
+      margin-top: 3rem;
+      color: var(--dim);
+      font-size: 0.85em;
+      letter-spacing: 0.3em;
+      border: 1px solid var(--border);
+      padding: 12px 28px;
+      transition: color 0.2s, border-color 0.2s;
+      opacity: 0;
+      animation: appear 0.5s ease 3.8s both;
+    }
+
+    .start-link:hover {
+      color: var(--text);
+      border-color: #333;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 1ch;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page intro">
+    <div class="title">RIDDLE</div>
+    <div id="typewriter"><span class="cursor">_</span></div>
+    <a class="start-link" href="levels/gateway-7f2k.html">BEGIN →</a>
+  </div>
+
+  <footer>riddlegame</footer>
+
+  <script>
+    const lines = [
+      'a puzzle site for those who look closer.',
+      '',
+      'some answers are spoken.',
+      'some hide in darkness.',
+      'some live in the code itself.',
+      '',
+      'are you ready?',
+    ];
+
+    const tw = document.getElementById('typewriter');
+    const cursor = tw.querySelector('.cursor');
+    let lineIdx = 0, charIdx = 0, currentEl;
+
+    function nextLine() {
+      if (lineIdx >= lines.length) {
+        tw.appendChild(cursor);
+        return;
+      }
+      const line = lines[lineIdx];
+      if (line === '') {
+        tw.appendChild(document.createElement('br'));
+        lineIdx++;
+        setTimeout(nextLine, 180);
+        return;
+      }
+      currentEl = document.createElement('p');
+      currentEl.style.display = 'inline';
+      tw.appendChild(currentEl);
+      tw.appendChild(cursor);
+      charIdx = 0;
+      typeChar();
+    }
+
+    function typeChar() {
+      if (charIdx < lines[lineIdx].length) {
+        currentEl.textContent += lines[lineIdx][charIdx];
+        charIdx++;
+        setTimeout(typeChar, 30);
+      } else {
+        tw.appendChild(document.createElement('br'));
+        lineIdx++;
+        setTimeout(nextLine, 320);
+      }
+    }
+
+    setTimeout(nextLine, 700);
+  </script>
+</body>
+</html>

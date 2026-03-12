@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Riddle — Level 9</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .strings {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin: 1.8rem 0 2.5rem;
+      align-items: center;
+    }
+
+    .b64 {
+      font-size: 0.88em;
+      color: #4a4a4a;
+      letter-spacing: 0.06em;
+      padding: 10px 18px;
+      border: 1px solid #141414;
+      cursor: text;
+      transition: color 0.2s, border-color 0.2s;
+      word-break: break-all;
+      text-align: center;
+      max-width: 420px;
+    }
+
+    .b64:hover {
+      color: #6a6a6a;
+      border-color: #222;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="lvl">— level 9 —</div>
+
+    <div class="clue">
+      <p>Not everything speaks in plain text.</p>
+      <p>These lines mean something.</p>
+      <p>One of them holds the answer.</p>
+
+      <div class="strings">
+        <div class="b64">dGhpcyBpcyBub3QgaXQ=</div>
+        <div class="b64">a2VlcCBsb29raW5n</div>
+        <div class="b64">c2lsZW5jZQ==</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <input type="text" id="answer" placeholder="decode and type..." autocomplete="off" spellcheck="false">
+      <button id="btn">→</button>
+    </div>
+
+    <div class="msg" id="msg"></div>
+    <div class="hint" id="hint">hint: atob()</div>
+  </div>
+
+  <footer>riddlegame</footer>
+
+  <script>
+    async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
+    const H = 'e6c18fdbe59783dfefef3595cd288bcb7ce912d36854b5e8faaef31235d9031b';
+    const next = 'perspective-6w4t.html';
+    let tries = 0;
+
+    const input = document.getElementById('answer');
+    const msg   = document.getElementById('msg');
+    const hint  = document.getElementById('hint');
+    const field = document.querySelector('.field');
+
+    async function check() {
+      const val = input.value.trim().toLowerCase();
+      if (!val) return;
+
+      const hv = await h(val);
+      if (hv === H) {
+        msg.textContent = 'decoded.';
+        msg.classList.add('ok');
+        setTimeout(() => window.location.href = next, 900);
+      } else {
+        tries++;
+        field.classList.remove('shake');
+        void field.offsetWidth;
+        field.classList.add('shake');
+
+        if (hv === 'f898f9f33750480435857af388d4b91d677ec36954c82ded0f3c82e4b2cb6d02') {
+          msg.textContent = 'correct. that one really isn\'t it.';
+        } else if (hv === '590d041b01af6d9d2afe820e6d24e7cd22b4e88d6415dfc50f2a4f768f2507b7') {
+          msg.textContent = 'yes, keep looking.';
+        } else {
+          msg.textContent = 'not quite.';
+        }
+
+        if (tries >= 3) hint.classList.add('visible');
+      }
+    }
+
+    document.getElementById('btn').addEventListener('click', check);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') check(); });
+    input.focus();
+  </script>
+</body>
+</html>

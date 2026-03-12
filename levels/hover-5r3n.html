@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Riddle — Level 11</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .reveal-box {
+      width: 260px;
+      height: 110px;
+      border: 1px solid #161616;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: crosshair;
+      margin: 2rem auto;
+      transition: border-color 0.4s;
+    }
+
+    .reveal-box .word {
+      color: transparent;
+      font-size: 1.7em;
+      letter-spacing: 0.5em;
+      transition: color 0.7s;
+      user-select: none;
+    }
+
+    .reveal-box:hover {
+      border-color: #242424;
+    }
+
+    .reveal-box:hover .word {
+      color: #d8d8d8;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="lvl">— level 11 —</div>
+
+    <div class="clue">
+      <p>Some things only reveal themselves</p>
+      <p>when you get close enough.</p>
+      <div class="reveal-box">
+        <span class="word">emerge</span>
+      </div>
+    </div>
+
+    <div class="field">
+      <input type="text" id="answer" placeholder="what appears?" autocomplete="off" spellcheck="false">
+      <button id="btn">→</button>
+    </div>
+
+    <div class="msg" id="msg"></div>
+    <div class="hint" id="hint">hint: move your mouse cursor over the dark rectangle</div>
+  </div>
+
+  <footer>riddlegame</footer>
+
+  <script>
+    async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
+    const H = '15275743f9d383469da72ab33caa1149f9ea6e0f23e258259cd84854baf7ad08';
+    const next = 'page-2w8k.html';
+    let tries = 0;
+
+    const input = document.getElementById('answer');
+    const msg   = document.getElementById('msg');
+    const hint  = document.getElementById('hint');
+    const field = document.querySelector('.field');
+
+    async function check() {
+      const val = input.value.trim().toLowerCase();
+      if (!val) return;
+      if (await h(val) === H) {
+        msg.textContent = 'there it is.';
+        msg.classList.add('ok');
+        setTimeout(() => window.location.href = next, 900);
+      } else {
+        tries++;
+        field.classList.remove('shake');
+        void field.offsetWidth;
+        field.classList.add('shake');
+        msg.textContent = 'not quite.';
+        if (tries >= 3) hint.classList.add('visible');
+      }
+    }
+
+    document.getElementById('btn').addEventListener('click', check);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') check(); });
+    input.focus();
+  </script>
+</body>
+</html>
