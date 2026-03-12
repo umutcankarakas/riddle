@@ -71,7 +71,7 @@
     <div class="hint" id="hint">hint: ↑ ↑ ↓ ↓ ← → ← → B A — press these keys on your keyboard in this exact order</div>
   </div>
 
-  <footer>riddlegame</footer>
+  <footer>riddlegame<span id="rg-counter" class="rg-counter"></span></footer>
 
   <script>
     const konamiSeq = [
@@ -157,6 +157,20 @@
 
     document.getElementById('btn').addEventListener('click', check);
     input.addEventListener('keydown', e => { if (e.key === 'Enter') check(); });
+  </script>
+  <script>
+  (async function(){
+    const DB='https://riddlegame-64c99-default-rtdb.firebaseio.com';
+    const KEY='level-8';
+    const LS='rg_c_'+KEY;
+    async function cnt(){try{const r=await fetch(DB+'/counters/'+KEY+'.json');return(await r.json())||0;}catch{return 0;}}
+    async function inc(){try{const c=await cnt();await fetch(DB+'/counters/'+KEY+'.json',{method:'PUT',body:JSON.stringify(c+1)});return c+1;}catch{return 0;}}
+    const counted=localStorage.getItem(LS);
+    const c=counted?await cnt():await inc();
+    if(!counted)localStorage.setItem(LS,'1');
+    const el=document.getElementById('rg-counter');
+    if(el&&c>0)el.textContent=c+' reached this level';
+  })();
   </script>
 </body>
 </html>

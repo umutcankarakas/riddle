@@ -164,6 +164,15 @@ footer {
   letter-spacing: 0.3em;
   user-select: none;
   pointer-events: none;
+  text-align: center;
+}
+
+.rg-counter {
+  display: block;
+  color: #1c1c1c;
+  letter-spacing: 0.15em;
+  margin-top: 0.35rem;
+  font-size: 0.9em;
 }
 
 /* Shake */
