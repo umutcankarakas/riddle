@@ -3,53 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Riddle — Level 14</title>
+  <title>Riddle — Level 16</title>
   <link rel="stylesheet" href="../style.css">
-  <style>
-    .morse-display {
-      font-size: 1.6em;
-      letter-spacing: 0.1em;
-      color: #fff;
-      margin: 2rem 0 0.5rem;
-      font-family: 'Share Tech Mono', 'Courier New', monospace;
-    }
-
-    .morse-sep {
-      color: #2a2a2a;
-      margin: 0 0.4em;
-    }
-
-  </style>
 </head>
 <body>
   <div class="page">
-    <div class="lvl">— level 14 —</div>
+    <div class="lvl">— level 16 —</div>
 
     <div class="clue">
-      <p>dit dah dit dah.</p>
-      <p>Some languages predate computers.</p>
-
-      <p>Decode:</p>
-      <div class="morse-display">
-        ·−−<span class="morse-sep">/</span>·−<span class="morse-sep">/</span>···−<span class="morse-sep">/</span>·
-      </div>
+      <p>Grove Street. Six stars rising.</p>
+      <p>Cops closing in from every direction.</p>
+      <p>&nbsp;</p>
+      <p>You remember the word.</p>
+      <p>The one that saved you every time.</p>
     </div>
 
     <div class="field">
-      <input type="text" id="answer" placeholder="decode the transmission..." autocomplete="off" spellcheck="false">
+      <input type="text" id="answer" placeholder="type the code..." autocomplete="off" spellcheck="false">
       <button id="btn">→</button>
     </div>
 
     <div class="msg" id="msg"></div>
-    <div class="hint" id="hint">hint: look up morse code</div>
+    <div class="hint" id="hint">hint: GTA San Andreas — health &amp; money cheat (PC)</div>
   </div>
 
   <footer>riddlegame</footer>
 
   <script>
     async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('rg:'+s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
-    const H = 'a12ad07f1301d85db82110722b31471157124355ebaa24fd6c2b7da7114839e5';
-    const next = 'tab-5x4z.html';
+    const H = '02314e09f99f77e14cdbbbbdf73d421cd1bb4a1d628c284444a8457616517a31';
+    const next = 'complete-2xr8.html';
     let tries = 0;
 
     const input = document.getElementById('answer');
@@ -61,7 +44,7 @@
       const val = input.value.trim().toLowerCase();
       if (!val) return;
       if (await h(val) === H) {
-        msg.textContent = 'transmission complete.';
+        msg.textContent = 'cheat activated.';
         msg.classList.add('ok');
         setTimeout(() => window.location.href = next, 900);
       } else {
