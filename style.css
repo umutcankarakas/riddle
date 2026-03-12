@@ -159,8 +159,8 @@ a:hover {
 footer {
   position: fixed;
   bottom: 1.8rem;
-  font-size: 0.62em;
-  color: #2e2e2e;
+  font-size: 0.72em;
+  color: #777;
   letter-spacing: 0.3em;
   user-select: none;
   pointer-events: none;
@@ -169,7 +169,7 @@ footer {
 
 .rg-counter {
   display: block;
-  color: #333;
+  color: #777;
   letter-spacing: 0.15em;
   margin-top: 0.35rem;
   font-size: 0.9em;
