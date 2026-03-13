@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Riddle — Level 5</title>
+  <title>Riddle — Level 2</title>
   <link rel="stylesheet" href="../style.css">
   <style>
     .alpha-grid {
@@ -31,7 +31,7 @@
 </head>
 <body>
   <div class="page">
-    <div class="lvl">— level 5 —</div>
+    <div class="lvl">— level 2 —</div>
 
     <div class="clue">
       <p>Numbers are just letters in disguise.</p>
@@ -64,7 +64,7 @@
   <script>
     async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('rg:'+s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
     const H = '2f4c3611e3c89cbdc77a0871ed55f1bf80f0bedac5889e09235bf4047c46b1b7';
-    const next = 'acrostic-4n8z.html';
+    const next = 'dark-3m9x.html';
     let tries = 0;
 
     const input = document.getElementById('answer');

@@ -45,7 +45,7 @@
       <div class="strings">
         <div class="b64">dGhpcyBpcyBub3QgaXQ=</div>
         <div class="b64">a2VlcCBsb29raW5n</div>
-        <div class="b64">c2lsZW5jZQ==</div>
+        <div class="b64">d2hpc3Blcg==</div>
       </div>
     </div>
 
@@ -62,7 +62,7 @@
 
   <script>
     async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('rg:'+s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
-    const H = 'd25e97cc6d928fef990f6de3ecb193424d19e1ed3be457268a4ebf81172ea5ce';
+    const H = '1e8244612f62dbbd08418dc7f1e7e830db2da57c5cfc520dff8b2ad786c2e148';
     const next = 'perspective-6w4t.html';
     let tries = 0;
 

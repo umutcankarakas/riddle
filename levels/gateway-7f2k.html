@@ -11,12 +11,7 @@
     <div class="lvl">— level 1 —</div>
 
     <div class="clue">
-      <p>It cannot be seen, cannot be felt,</p>
-      <p>Cannot be heard, cannot be smelt.</p>
-      <p>It lies behind stars and under hills,</p>
-      <p>And empty holes it fills.</p>
-      <p>It comes out first and follows after,</p>
-      <p>Ends life, kills laughter.</p>
+      <p>What disappears as soon as you say its name?</p>
     </div>
 
     <div class="field">
@@ -25,15 +20,15 @@
     </div>
 
     <div class="msg" id="msg"></div>
-    <div class="hint" id="hint">hint: where light cannot reach</div>
+    <div class="hint" id="hint">hint: naming it breaks it</div>
   </div>
 
   <footer>riddlegame<span id="rg-counter" class="rg-counter"></span></footer>
 
   <script>
     async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('rg:'+s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
-    const H = 'd247ade8536a71827f37b8e8c7f38eba8e6c548e436b8c7476f37e2c34170e53';
-    const next = 'dark-3m9x.html';
+    const H = 'd25e97cc6d928fef990f6de3ecb193424d19e1ed3be457268a4ebf81172ea5ce';
+    const next = 'numbers-9v2w.html';
     let tries = 0;
 
     const input = document.getElementById('answer');
