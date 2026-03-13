@@ -3,20 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Riddle — Level 16</title>
+  <title>Riddle — Level 17</title>
   <link rel="stylesheet" href="../style.css">
 </head>
 <body>
   <div class="page">
-    <div class="lvl">— level 16 —</div>
+    <div class="lvl">— level 17 —</div>
 
     <div class="clue">
-      <p>Grove Street. Old times.</p>
-      <p>You know the word.</p>
+      <p>7777828444222</p>
     </div>
 
     <div class="field">
-      <input type="text" id="answer" placeholder="type the code..." autocomplete="off" spellcheck="false">
+      <input type="text" id="answer" placeholder="your answer..." autocomplete="off" spellcheck="false">
       <button id="btn">→</button>
     </div>
 
@@ -27,8 +26,8 @@
 
   <script>
     async function h(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('rg:'+s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
-    const H = '02314e09f99f77e14cdbbbbdf73d421cd1bb4a1d628c284444a8457616517a31';
-    const next = 'dial-5m2x.html';
+    const H = 'f9c942a1665eab4623e1c0dee1c80747a7731c604b319c20cc231135a9f89efb';
+    const next = 'complete-2xr8.html';
     let tries = 0;
 
     const input = document.getElementById('answer');
@@ -39,7 +38,7 @@
       const val = input.value.trim().toLowerCase();
       if (!val) return;
       if (await h(val) === H) {
-        msg.textContent = 'cheat activated.';
+        msg.textContent = 'correct.';
         msg.classList.add('ok');
         setTimeout(() => window.location.href = next, 900);
       } else {
@@ -58,7 +57,7 @@
   <script>
   (async function(){
     const DB='https://riddlegame-64c99-default-rtdb.firebaseio.com';
-    const KEY='level-16';
+    const KEY='level-17';
     const LS='rg_c_'+KEY;
     async function cnt(){try{const r=await fetch(DB+'/counters/'+KEY+'.json');return(await r.json())||0;}catch{return 0;}}
     async function inc(){try{const c=await cnt();await fetch(DB+'/counters/'+KEY+'.json',{method:'PUT',body:JSON.stringify(c+1)});return c+1;}catch{return 0;}}
