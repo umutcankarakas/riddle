@@ -68,7 +68,6 @@
       <div class="dot-key" id="d9"></div>
     </div>
 
-    <div class="hint" id="hint">hint: ↑ ↑ ↓ ↓ ← → ← → B A — press these keys on your keyboard in this exact order</div>
   </div>
 
   <footer>riddlegame<span id="rg-counter" class="rg-counter"></span></footer>
@@ -89,7 +88,6 @@
 
     const input  = document.getElementById('answer');
     const msg    = document.getElementById('msg');
-    const hint   = document.getElementById('hint');
     const field  = document.querySelector('.field');
     const reveal = document.getElementById('reveal');
 
@@ -137,7 +135,6 @@
 
       if (!unlocked) {
         msg.textContent = 'enter the sequence first.';
-        hint.classList.add('visible');
         return;
       }
 
@@ -151,7 +148,6 @@
         void field.offsetWidth;
         field.classList.add('shake');
         msg.textContent = 'not quite.';
-        if (tries >= 3) hint.classList.add('visible');
       }
     }
 

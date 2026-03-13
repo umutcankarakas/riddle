@@ -21,7 +21,6 @@
     </div>
 
     <div class="msg" id="msg"></div>
-    <div class="hint" id="hint">hint: GTA San Andreas — health &amp; money cheat (PC)</div>
   </div>
 
   <footer>riddlegame<span id="rg-counter" class="rg-counter"></span></footer>
@@ -34,7 +33,6 @@
 
     const input = document.getElementById('answer');
     const msg   = document.getElementById('msg');
-    const hint  = document.getElementById('hint');
     const field = document.querySelector('.field');
 
     async function check() {
@@ -50,7 +48,6 @@
         void field.offsetWidth;
         field.classList.add('shake');
         msg.textContent = 'not quite.';
-        if (tries >= 3) hint.classList.add('visible');
       }
     }
 
