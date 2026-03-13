@@ -55,8 +55,8 @@ a:hover {
 }
 
 .lvl {
-  color: var(--dim);
-  font-size: 0.68em;
+  color: var(--text);
+  font-size: 0.72em;
   letter-spacing: 0.55em;
   margin-bottom: 4rem;
   text-transform: uppercase;
